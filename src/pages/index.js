@@ -1,21 +1,60 @@
 import React from "react"
-import { Link } from "gatsby"
-
+import { graphql, Link } from "gatsby"
+import { Card } from "react-bootstrap"
+import Img from "gatsby-image"
+import { formatPrice } from "../utils/formatPrice"
 import Layout from "../components/layout"
-import Image from "../components/image"
 import SEO from "../components/seo"
+import PageTitle from "../components/PageTitle"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+const IndexPage = ({ data }) => {
+  const products = data.allStrapiProduct.nodes.map(product => (
+    <div className="l-product m-product mb-4" key={product.id}>
+      <Link to={`/products/${product.slug}`}>
+        <Card style={{ height: "100%" }}>
+          <Img fluid={product.thumbnail.childImageSharp.fluid} />
+          <Card.Body>
+            <Card.Title>{product.name}</Card.Title>
+            <Card.Text>
+              <strong>{formatPrice(product.price_in_cent)}</strong>
+            </Card.Text>
+          </Card.Body>
+        </Card>
+      </Link>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+  ))
+
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <PageTitle title="Shop" />
+      <div className="d-sm-flex flex-wrap justify-content-between">
+        {products}
+      </div>
+    </Layout>
+  )
+}
+
+export const pageQuery = graphql`
+  query getProducts {
+    allStrapiProduct {
+      nodes {
+        id
+        name
+        price_in_cent
+        slug
+        strapiId
+        created_at
+        thumbnail {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage

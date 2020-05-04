@@ -1,8 +1,8 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Gatsby / Strapi / Stripe`,
+    description: `Fullstack javascript application, with Gatsby js client and Strapi backend, with stripe payment.`,
+    author: `markoni`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -27,8 +27,14 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: process.env.GATSBY_URL,
+        queryLimit: 1000,
+        contentTypes: [`product`],
+        singleTypes: [],
+      },
+    },
   ],
 }
