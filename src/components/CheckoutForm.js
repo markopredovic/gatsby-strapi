@@ -24,15 +24,18 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     const loadToken = async () => {
-      const response = await fetch(`${process.env.STRAPI_URL}/orders/payment`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          cart: cart,
-        }),
-      })
+      const response = await fetch(
+        `https://markoni-strapi.herokuapp.com/orders/payment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cart: cart,
+          }),
+        }
+      )
 
       const data = await response.json()
       setToken(data.client_secret)

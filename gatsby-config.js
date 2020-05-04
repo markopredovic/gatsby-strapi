@@ -32,7 +32,7 @@ module.exports = {
       options: {
         apiURL: "https://markoni-strapi.herokuapp.com",
         queryLimit: 1000,
-        contentTypes: [`product`, `user`],
+        contentTypes: [`product`],
         singleTypes: [],
       },
     },
