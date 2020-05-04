@@ -30,7 +30,9 @@ module.exports = {
     {
       resolve: `gatsby-source-strapi`,
       options: {
-        apiURL: process.env.GATSBY_URL,
+        apiURL: process.env.GATSBY_URL
+          ? "https://markoni-strapi.herokuapp.com"
+          : "http://localhost:1337",
         queryLimit: 1000,
         contentTypes: [`product`],
         singleTypes: [],
