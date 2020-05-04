@@ -24,6 +24,7 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     const loadToken = async () => {
+      console.log("url", `${process.env.STRAPI_URL}/orders/payment`)
       const response = await fetch(`${process.env.STRAPI_URL}/orders/payment`, {
         method: "POST",
         headers: {
