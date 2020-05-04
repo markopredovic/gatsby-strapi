@@ -24,8 +24,11 @@ const CheckoutForm = () => {
 
   useEffect(() => {
     const loadToken = async () => {
+      const strapi_url = !!process.env.STRAPI_URL
+        ? process.env.STRAPI_URL
+        : "https://markoni-strapi.herokuapp.com/"
       console.log("url", `${process.env.STRAPI_URL}/orders/payment`)
-      const response = await fetch(`${process.env.STRAPI_URL}/orders/payment`, {
+      const response = await fetch(`${strapi_url}/orders/payment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
